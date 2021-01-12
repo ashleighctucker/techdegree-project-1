@@ -1,37 +1,55 @@
-"""
-Python Web Development Techdegree
-Project 1 - Number Guessing Game
---------------------------------
-
-For this first project we will be using Workspaces. 
-
-NOTE: If you strongly prefer to work locally on your own computer, you can totally do that by clicking: File -> Download Workspace in the file menu after you fork the snapshot of this workspace.
-
-"""
-
 import random
 
+print("""
+---------------------------------------
+---------------------------------------
+->WELCOME TO THE NUMBER GUESSING GAME<-
+---------------------------------------
+---------------------------------------
+""")
+
+high_score = []
 
 def start_game():
-    """Psuedo-code Hints
-    
-    When the program starts, we want to:
-    ------------------------------------
-    1. Display an intro/welcome message to the player.
-    2. Store a random number as the answer/solution.
-    3. Continuously prompt the player for a guess.
-      a. If the guess greater than the solution, display to the player "It's lower".
-      b. If the guess is less than the solution, display to the player "It's higher".
-    
-    4. Once the guess is correct, stop looping, inform the user they "Got it"
-         and show how many attempts it took them to get the correct number.
-    5. Let the player know the game is ending, or something that indicates the game is over.
-    
-    ( You can add more features/enhancements if you'd like to. )
-    """
-    # write your code inside this function.
+    target_num = random.randint(1, 10)
+    guess_num = []
 
+    while True:
+
+        try:
+            guess = int(input("Pick a number between 1 and 10:  "))
+            if guess > 10:
+                raise ValueError()
+            elif guess < 1:
+                raise ValueError()
+        except ValueError:
+            print("That is not a valid input. Try again.")
+        else:
+            guess_num.append(guess)
+
+            if guess_num[-1] == target_num:
+                print("You got it! It took you {} tries.".format(len(guess_num)))
+                high_score.append(len(guess_num))
+                break
+            elif guess_num[-1] > target_num:
+                print("It's lower!")
+                continue
+            elif guess_num[-1] < target_num:
+                print("It's higher!")
+                continue
 
 
 # Kick off the program by calling the start_game function.
 start_game()
+
+while True:
+    play_again = input("Would you like to play again? Y/N  ")
+
+    if play_again.lower() == 'y':
+        print("The current high score is {}!".format(min(high_score)))
+        start_game()
+        continue
+#todo add highscore
+    else:
+        print("Thanks for playing. Your high score was {}.".format(min(high_score)))
+        break
