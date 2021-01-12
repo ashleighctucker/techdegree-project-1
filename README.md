@@ -1,2 +1,2 @@
-# techdegree-project-1
+# Tech Degree Project 1
  Random number game
